@@ -3,6 +3,8 @@
 import sys
 import os
 import re
+
+
 class Solution:
     def partition(self, s: str):
         n = len(s)
@@ -13,12 +15,13 @@ class Solution:
                 self.ans.append(path)
                 return
             for i in range(len(s)):
-                if s[:i+1] == s[:i+1][::-1]:
-                    dfs(s[i+1:], path + [s[:i+1]])
+                if s[:i + 1] == s[:i + 1][::-1]:
+                    dfs(s[i + 1:], path + [s[:i + 1]])
 
         dfs(s, [])
-        m=len(self.ans)
+        m = len(self.ans)
         return m
+
 
 # class Solution:
 #     def partition(self, s: str):
