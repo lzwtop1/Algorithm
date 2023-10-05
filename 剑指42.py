@@ -1,4 +1,3 @@
-
 class Solution:
     def find_greatest_sub_array(self, array):
         """
@@ -25,14 +24,12 @@ class Solution:
 
 # 测试用例
 if __name__ == '__main__':
-    n=input()
-    arr=input()
+    n = input()
+    arr = input()
     arrays = [int(n) for n in arr.split()]
     s = Solution()
     for array in arrays:
-        print (s.find_greatest_sub_array(array))
-
-
+        print(s.find_greatest_sub_array(array))
 
 # def function(lists):
 #     max_sum = lists[0]

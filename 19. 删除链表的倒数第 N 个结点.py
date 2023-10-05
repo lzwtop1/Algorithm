@@ -1,6 +1,4 @@
-import json
-
-
+# 链表节点的定义
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -8,76 +6,41 @@ class ListNode:
 
 
 class Solution:
-    def removeNthFromEnd(self, head: [ListNode], n: int) -> [ListNode]:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        # 创建虚拟头结点
         dummy = ListNode(0)
         dummy.next = head
 
-        # step1: 快指针先走n步
-        slow, fast = dummy, dummy
-        for _ in range(n):
-            fast = fast.next
+        # 计算链表的长度
+        length = 0
+        cur = head
+        while cur:
+            length += 1
+            cur = cur.next
 
-            # step2: 快慢指针同时走，直到fast指针到达尾部节点，此时slow到达倒数第N个节点的前一个节点
-        while fast and fast.next:
-            slow, fast = slow.next, fast.next
+        # 计算要删除节点的位置
+        pos = length - n  # 3
 
-            # step3: 删除节点，并重新连接
-        slow.next = slow.next.next
+        # 找到要删除节点的前一个节点
+        cur = dummy
+        for i in range(pos):
+            cur = cur.next
+
+        # 删除要删除的节点
+        cur.next = cur.next.next
+
+        # 返回新的链表头
         return dummy.next
 
 
-def stringToIntegerList(input):
-    return json.loads(input)
+# 创建链表
+head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
 
+# 创建解决方案实例并删除倒数第二个节点
+s = Solution()
+result = s.removeNthFromEnd(head, 2)
 
-def stringToListNode(input):
-    # Generate list from the input
-    numbers = stringToIntegerList(input)
-
-    # Now convert that list into linked list
-    dummyRoot = ListNode(0)
-    ptr = dummyRoot
-    for number in numbers:
-        ptr.next = ListNode(number)
-        ptr = ptr.next
-
-    ptr = dummyRoot.next
-    return ptr
-
-
-def listNodeToString(node):
-    if not node:
-        return "[]"
-
-    result = ""
-    while node:
-        result += str(node.val) + ", "
-        node = node.next
-    return "[" + result[:-2] + "]"
-
-
-def main():
-    import sys
-    import io
-    def readlines():
-        for line in io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8'):
-            yield line.strip('\n')
-
-    lines = readlines()
-    while True:
-        try:
-            line = next(lines)
-            head = stringToListNode(line);
-            line = next(lines)
-            n = int(line);
-
-            ret = Solution().removeNthFromEnd(head, n)
-
-            out = listNodeToString(ret);
-            print(out)
-        except StopIteration:
-            break
-
-
-if __name__ == '__main__':
-    main()
+# 遍历链表并输出
+while result:
+    print(result.val, end=' ')
+    result = result.next
